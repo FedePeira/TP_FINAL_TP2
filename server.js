@@ -17,6 +17,11 @@ app.use(routes);
 // import User from "./Models/User.js";
 // import Product from "./Models/Product.js";
 // import Category from "./Models/Category.js";
+app.use((error, req, res, next) => {
+    res
+    .status(error.status || 500)
+    .sen({success: false, message: error.message});
+})
 
 /*
 Se utilizaría para sincronizar los modelos definidos en tu aplicación con la base de datos, 

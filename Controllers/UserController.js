@@ -1,4 +1,5 @@
 import { User } from "../Models/index.js";
+import  jwt  from "jsonwebtoken";
 
 class UserController {
     constructor() {}
@@ -18,17 +19,22 @@ class UserController {
         try {
             const { name, lastName, password, email } = req.body;
             const result = await User.create({ name, lastName, password, email });
-            if(!result) throw new Error("No se pudo crear al usuario");
+            if(!result){
+               const error = new Error("No se pudo crear al usuario");
+               error.status = 400;
+               throw error;
+            } 
             res.status(200).send({
                 success: true, 
                 message:"Usuario creado con exito",
                 result,
             });
         } catch(error) {
-            res.status(400).send({
-                success: false,
-                message: error.message,
-            });
+            // res.status(400).send({
+               // success: false,
+               // message: error.message,
+            // });
+            next(error);
         }
     };
 
@@ -95,6 +101,39 @@ class UserController {
           res.status(500).json({ error: 'Error al eliminar el usuario' });
         }
     };
+
+    // Metodo Login
+    login = async (req, res)=> {
+        try {
+            const { email, password: passwordTextoPlano } = req.body;
+
+            const result = await User.findOne({
+                where: {
+                    email,
+                },
+            });
+            const comparePassword = result.validatePassword(passwordTextoPlano)
+            
+            if(!comparePassword){
+                const error = new Error("Credenciales erroneas");
+                error.status = 400; 
+                throw error;
+            }
+
+            const payload = {
+                id: result.id,
+                email:result.email
+            }
+            const token = jwt.sign(payload, "jueves")
+            // if(!result) throw new Error ("No se pudo crear el producto")
+            res.status(200).send({
+                success: true,
+                message: "Usuario logueado",
+            });
+        } catch(e){
+            next(e);
+        }
+    }
 }
 
 export default UserController;

@@ -6,6 +6,7 @@ const userController = new UserController();
 userRoutes.get("/", userController.getAllUsers);
 userRoutes.get("/:id", userController.getUserById);
 userRoutes.put("/:id", userController.updateProduct);
+userRoutes.post("/login", userController.login);
 userRoutes.post("/", userController.createUser);
 userRoutes.delete("/:id");
 

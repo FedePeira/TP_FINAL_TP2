@@ -1,5 +1,8 @@
 import { User } from "../Models/index.js";
 import  jwt  from "jsonwebtoken";
+import { generarToken, verificarToken } from "../utils/token.js";
+
+
 
 class UserController {
     constructor() {}
@@ -124,7 +127,10 @@ class UserController {
                 id: result.id,
                 email:result.email
             }
-            const token = jwt.sign(payload, "jueves")
+            
+            const token = generarToken(payload)
+            //Una vez generado el token se guarda en una cookie
+            res.cookie("token", token)
             // if(!result) throw new Error ("No se pudo crear el producto")
             res.status(200).send({
                 success: true,
@@ -133,7 +139,21 @@ class UserController {
         } catch(e){
             next(e);
         }
+    };
+    //Es para traerse el usuario que esta dentro de la cookie por si refresco la pagina
+    
+    me=(req,res,next)=>{
+        const {user} = req
+
+
+        res.status(200).send({
+            success: true,
+            message: "Usuario ok",
+            result: user
+        });
+
     }
+
 }
 
 export default UserController;

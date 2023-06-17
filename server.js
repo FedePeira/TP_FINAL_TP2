@@ -3,12 +3,15 @@
 // Ayuda administrar servidores y rutas
 import express from "express";
 import connection from "./connection/connection.js"
+
 const app = express();
 // Las {} sirven para importar, en este caso de config.js, miembros especificos de un modulo en lugar de importar el modulo entero
 import { serverPort } from "./config/config.js"; 
 import routes from "./routes/routes.js";
 import categorySpeed from "./seed/categorySeed.js"
+import cookieParser from "cookie-parser";
 
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

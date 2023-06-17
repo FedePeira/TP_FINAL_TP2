@@ -152,6 +152,16 @@ class UserController {
             result: user
         });
 
+    };
+
+    logout=(req,res,next)=>{
+        res.cookie("token", "")
+        
+        res.status(200).send({
+            success: true,
+            message: "Usuario deslogueado",
+           
+        })
     }
 
 }

@@ -109,12 +109,13 @@ class UserController {
     login = async (req, res)=> {
         try {
             const { email, password: passwordTextoPlano } = req.body;
-
+            
             const result = await User.findOne({
                 where: {
                     email,
                 },
             });
+            
             const comparePassword = result.validatePassword(passwordTextoPlano)
             
             if(!comparePassword){
@@ -122,13 +123,14 @@ class UserController {
                 error.status = 400; 
                 throw error;
             }
-
+            
             const payload = {
                 id: result.id,
                 email:result.email
             }
             
             const token = generarToken(payload)
+            
             //Una vez generado el token se guarda en una cookie
             res.cookie("token", token)
             // if(!result) throw new Error ("No se pudo crear el producto")
@@ -136,6 +138,7 @@ class UserController {
                 success: true,
                 message: "Usuario logueado",
             });
+            
         } catch(e){
             next(e);
         }

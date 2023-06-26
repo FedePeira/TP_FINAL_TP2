@@ -31,6 +31,11 @@ User.init({
             isEmail: true,
         }
     },
+    role:{
+        type: DT.STRING,
+        allowNull: false
+    }
+    ,
     salt:{
         type: DT.STRING,
     }

@@ -20,8 +20,19 @@ class UserController {
 
     createUser = async (req, res, next) => {
         try {
+
+            const user = await User.count({
+                where:{
+                    id:1
+                }
+            })
+            let role = "user"
+            if(user==0){
+                role  = "admin"
+            }
+
             const { name, lastName, password, email } = req.body;
-            const result = await User.create({ name, lastName, password, email });
+            const result = await User.create({ name, lastName, password, email, role });
             if(!result){
                const error = new Error("No se pudo crear al usuario");
                error.status = 400;

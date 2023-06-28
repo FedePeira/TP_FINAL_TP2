@@ -4,7 +4,7 @@ import userRoutes from "./userRoutes.js";
 const routes = Router();
 
 // Seccion de link de productos
-routes.use("/products", productRoutes);
-routes.use("/users", userRoutes);
+routes.use("api/products", productRoutes);
+routes.use("api/users", userRoutes);
 
 export default routes;

@@ -101,6 +101,28 @@ class ProductController {
             });
         }
     };
+    getProductByCategory = async (req, res, next) => {
+        try {
+            const {categoryId} = req.params
+            const result = await Product.findAll({
+                attributes: ["id", "name", "description", "categoryId"],
+                where: {
+                    categoryId
+                }
+            })
+            if(result.length===0) throw new Error("No hay producto");
+            
+            res.status(200).send({
+                success: true,
+                message: "Estos son los productos",
+                result
+            });
+
+            
+        } catch (error) {
+            next(error)
+        }
+    }
 };
 
 export default ProductController;

@@ -83,7 +83,7 @@ class UserController {
         }
     };
 
-    updateProduct = async (req, res) => {
+    updateUser = async (req, res) => {
         try {
             console.log("Bienvenido a Update");
             const { id } = req.params;
@@ -112,8 +112,10 @@ class UserController {
     };
     deleteUser = async (req, res) => {
         try {
-          const userId = req.params.id;
-          await User.findByIdAndDelete(userId);
+          const {id}= req.params;
+          await User.destroy({where:{
+            id
+          }});
       
           // Enviar una respuesta exitosa
           res.status(200).json({ message: 'Usuario eliminado exitosamente' });

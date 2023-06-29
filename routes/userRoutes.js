@@ -22,7 +22,7 @@ userRoutes.post("/logout",userController.logout)
 userRoutes.use(validateAdmin)
 
 userRoutes.get("/", userController.getAllUsers);
-userRoutes.put("/:id", userController.updateProduct);
+userRoutes.put("/:id", userController.updateUser);
 userRoutes.delete("/:id",userController.deleteUser);
 
 export default userRoutes;

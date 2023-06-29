@@ -157,6 +157,7 @@ class UserController {
             res.status(200).send({
                 success: true,
                 message: "Usuario logueado",
+                result
             });
             
         } catch(error){

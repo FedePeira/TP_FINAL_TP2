@@ -159,9 +159,11 @@ class UserController {
                 message: "Usuario logueado",
             });
             
-        } catch(e){
-            next(e);
-        }
+        } catch(error){
+            res.status(400).send({
+                success: false,
+                message: "Usuario no pudo loguear"
+        })}
     };
     //Es para traerse el usuario que esta dentro de la cookie por si refresco la pagina
     

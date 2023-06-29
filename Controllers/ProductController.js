@@ -19,8 +19,6 @@ class ProductController {
             });
             if(result.length===0) throw new Error("No hay productos");
             res.status(200).send({
-                success: true, 
-                message:"Estos son los productos encontrodos", 
                 result,
             });
         } catch(error){
@@ -78,9 +76,11 @@ class ProductController {
         try {
             console.log("Bienvenido a Update");
             const { id } = req.params;
-            const { name, description, category } = req.body;
+            console.log(id);
+            const { name, description } = req.body;
+            console.log(req.body);
             const result = await Product.update(
-                { name, description, category },
+                { name, description },
                 {
                     where: {
                         id,

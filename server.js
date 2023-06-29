@@ -10,11 +10,11 @@ import { serverPort } from "./config/config.js";
 import routes from "./routes/routes.js";
 import categorySpeed from "./seed/categorySeed.js"
 import cookieParser from "cookie-parser";
+import cors from 'cors'
 
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(routes);
 // momentaneamente(Si no la tenemos que utilizar no es necesario importarlas aca)
 // import User from "./Models/User.js";
@@ -26,6 +26,7 @@ app.use((error, req, res, next) => {
     .send({success: false, message: error.message});
 })
 
+app.use(cors())
 /*
 Se utilizaría para sincronizar los modelos definidos en tu aplicación con la base de datos, 
 asegurando que las tablas y las relaciones estén actualizadas. La opción "force" con valor "false" 

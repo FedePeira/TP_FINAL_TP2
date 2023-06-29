@@ -11,7 +11,7 @@ productRoutes.get("/:categoryId", productController.getProductByCategory);
 productRoutes.get("/:categoryId/:id", productController.getProductById);
 
 
-productRoutes.use(validateLogin, validateAdmin)
+// productRoutes.use(validateLogin, validateAdmin)
 productRoutes.post("/", productController.createProduct);
 productRoutes.put("/:id", productController.updateProduct);
 

@@ -9,7 +9,14 @@ class UserController {
 
     getAllUsers = async (req, res, next) => {
         try {
-            res.status(200).send("ok");
+            const users = await User.findAll({where: {
+                
+            }})
+            res.status(200).send({
+                success: true, 
+                message:"Usuarios encontrados con exito",
+                result: users
+            } );
         } catch(error) {
             res.status(400).send({
                 success: false,
